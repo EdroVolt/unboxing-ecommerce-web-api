@@ -5,23 +5,23 @@ const schema = new mongoose.Schema({
   name: { String, required: true },
   email: { String, required: true },
   password: { String, required: true },
-  phoneNumber: { Number, required: true },
+  phoneNumber: String,
   address: {
     city: String,
     street: String,
     government: String
   },
   oreders: [{
-    products: [{ productId: Number, count: Number }],
+    products: [{ productId: mongoose.Types.ObjectId, count: Number }],
     totalCount: Number,
-    paymentMethod: String
+    paymentMethod: { enum: ['cash', 'visa'] }
   }],
   cart: [{
-    products: [{ productId: Number, count: Number }],
+    products: [{ productId: mongoose.Types.ObjectId, count: Number }],
     totalCount: Number
   }],
   wishList: [{
-    products: [{ productId: Number, count: Number }],
+    products: [{ productId: mongoose.Types.ObjectId, count: Number }],
     totalCount: Number
   }]
 });
@@ -34,23 +34,23 @@ export interface User {
     name: String,
     email: String,
     password: String,
-    phoneNumber: Number,
+    phoneNumber: String,
     address: {
       city: String,
       street: String,
       government: String
     },
     oreders: [{
-      products: [{ productId: Number, count: Number }],
+      products: [{ productId: mongoose.Types.ObjectId, count: Number }],
       totalCount: Number,
-      paymentMethod: String
+      paymentMethod: { enum: ['cash', 'visa'] }
     }],
     cart: [{
-      products: [{ productId: Number, count: Number }],
+      products: [{ productId: mongoose.Types.ObjectId, count: Number }],
       totalCount: Number
     }],
     wishList: [{
-      products: [{ productId: Number, count: Number }],
+      products: [{ productId: mongoose.Types.ObjectId, count: Number }],
       totalCount: Number
     }]
 }

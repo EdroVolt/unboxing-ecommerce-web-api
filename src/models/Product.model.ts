@@ -39,14 +39,15 @@ export interface Product {
     l: number;
     xl: number;
   };
-
+  categoryId: mongoose.Types.ObjectId,
   ingredients: [string];
-  images: string;
+  images: [string];
   price: number;
   discount: number;
-  offer: number;
+  offer: boolean;
   reviews: [
     {
+      userId: mongoose.Types.ObjectId,
       comment: string;
       rate: number;
     }

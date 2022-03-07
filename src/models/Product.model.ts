@@ -12,11 +12,12 @@ const schema = new mongoose.Schema({
     l: Number,
     xl: Number
   },
+  categoryId: mongoose.Types.ObjectId,
   ingredients: [String],
-  images: { type: String, required: true },
+  images: [String],
   price: { type: Number, required: true },
   discount: Number,
-  offer: Number,
+  offer: Boolean,
   reviews: [
     {
       comment: String,

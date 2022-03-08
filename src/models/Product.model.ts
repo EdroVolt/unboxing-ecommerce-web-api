@@ -20,6 +20,7 @@ const schema = new mongoose.Schema({
   offer: Boolean,
   reviews: [
     {
+      userId: mongoose.Types.ObjectId,
       comment: String,
       rate: Number
     }

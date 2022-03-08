@@ -13,8 +13,8 @@ mongoose.model('admins', schema);
 // generate admin type as Admin interface
 export interface Admin {
   _id: mongoose.Types.ObjectId;
-  name: String;
-  email: String;
-  password: String;
-  role: String;
+  name: string;
+  email: string;
+  password: string;
+  role: string;
 }

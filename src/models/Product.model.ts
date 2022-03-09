@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -27,13 +27,13 @@ const schema = new mongoose.Schema({
   numOfReviews: Number
 });
 
-export const ProductModel = mongoose.model('products', schema);  
+export const ProductModel = mongoose.model('products', schema);
 
 export interface Product {
   name: string;
   description: string;
   count: number;
-  size_count: {
+  sizeCount: {
     xs: number;
     s: number;
     md: number;

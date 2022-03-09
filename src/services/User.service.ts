@@ -1,4 +1,4 @@
-import UserRepo from '../repositories/User.repo';
+import { UserRepo } from '../repositories/User.repo';
 
 const userRepo = new UserRepo();
 

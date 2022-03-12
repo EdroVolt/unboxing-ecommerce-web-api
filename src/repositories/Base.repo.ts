@@ -41,11 +41,11 @@ export abstract class BaseRepo<schema> {
     });
   }
 
-  updateOne(_id: mongoose.Types.ObjectId | number, filter: {}) {
+  updateOne(_id: mongoose.Types.ObjectId | number, data: schema) {
     return new Promise((resolve, reject) => {
       const doc = this.findById(_id);
       if (!doc) reject(new Error('no such document'));
-      model(this._collectionName).updateOne(filter);
+      model(this._collectionName).updateOne(data);
       resolve(doc);
     });
   }

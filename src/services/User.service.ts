@@ -7,18 +7,17 @@ export class UserService {
 
   // TODO: findOne()
 
-  async findOne(_id: mongoose.Types.ObjectId | number) {
-    try {
-      const userDoc = await userRepo.findById(_id);
-      return userDoc;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   // TODO: createOne()
 
   // TODO: updateOne()
 
   // TODO: deleteOne()
+  async deleteOne(_id: mongoose.Types.ObjectId | number) {
+    try {
+      const userDoc = await userRepo.deleteOne(_id);
+      return userDoc;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }

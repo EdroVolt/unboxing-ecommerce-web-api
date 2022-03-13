@@ -10,14 +10,14 @@ export class UserService {
   // TODO: createOne()
 
   // TODO: updateOne()
-  async updateOne(_id: mongoose.Types.ObjectId | number) {
+
+  // TODO: deleteOne()
+  async deleteOne(_id: mongoose.Types.ObjectId | number) {
     try {
-      const userDoc = await userRepo.updateOne(_id);
+      const userDoc = await userRepo.deleteOne(_id);
       return userDoc;
     } catch (err) {
       console.log(err);
     }
   }
 }
-
-// TODO: deleteOne()

@@ -41,21 +41,25 @@ export abstract class BaseRepo<schema> {
     });
   }
 
-  updateOne(_id: mongoose.Types.ObjectId | number, filter: {}) {
+  updateOne(_id: mongoose.Types.ObjectId | number, newData: Object) {
     return new Promise((resolve, reject) => {
-      const doc = this.findById(_id);
-      if (!doc) reject(new Error('no such document'));
-      model(this._collectionName).updateOne(filter);
-      resolve(doc);
+      model(this._collectionName)
+        .findByIdAndUpdate(_id, newData)
+        .exec((err, doc) => {
+          if (err) reject(err);
+          resolve(doc);
+        });
     });
   }
 
   deleteOne(_id: mongoose.Types.ObjectId | number) {
     return new Promise((resolve, reject) => {
-      const doc = this.findById(_id);
-      if (!doc) reject(new Error('no such document'));
-      model(this._collectionName).deleteOne({ _id });
-      resolve(doc);
+      model(this._collectionName)
+        .findByIdAndDelete(_id)
+        .exec((err, doc) => {
+          if (err) reject(err);
+          resolve(doc);
+        });
     });
   }
 }

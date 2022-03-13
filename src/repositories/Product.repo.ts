@@ -1,4 +1,4 @@
-import { Product, ProductModel } from 'models/Product.model';
+import { Product, ProductModel } from '../models/Product.model';
 import { BaseRepo } from './Base.repo';
 
 export class ProductRepo extends BaseRepo<Product> {

@@ -7,16 +7,16 @@ const productRepo: ProductRepo = new ProductRepo();
 
 export class ProductService {
   // TODO: findAll()
-  async findAll() {
+
+  // TODO: findOne()
+  async findOne(_id: mongoose.Types.ObjectId | number) {
     try {
-      const productDoc = await productRepo.findAll();
+      const productDoc = await productRepo.findById(_id);
       return productDoc;
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.log(err);
     }
   }
-  // TODO: findOne()
-
   // TODO: createOne()
 
   // TODO: updateOne()

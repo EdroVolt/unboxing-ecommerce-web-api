@@ -9,14 +9,15 @@ export class ProductService {
   // TODO: findAll()
   // TODO: findOne()
   // TODO: createOne()
-  async createOne(data: Product) {
+  // TODO: updateOne()
+  async updateOne(_id: mongoose.Types.ObjectId | number, data: object) {
     try {
-      const productDoc = await productRepo.create(data);
-      return productDoc;
+      const productDoc = await productRepo.updateOne(_id, data);
+      const newProduct = await productRepo.findById(_id);
+      return newProduct;
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   }
-  // TODO: updateOne()
   // TODO: deleteOne()
 }

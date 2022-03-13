@@ -11,11 +11,12 @@ export class UserService {
 
   // TODO: updateOne()
   async updateOne(_id: mongoose.Types.ObjectId | number) {
-    const userDoc = await userRepo.updateOne(_id);
-    return userDoc;
-  }
-  catch(err) {
-    console.log(err);
+    try {
+      const userDoc = await userRepo.updateOne(_id);
+      return userDoc;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 

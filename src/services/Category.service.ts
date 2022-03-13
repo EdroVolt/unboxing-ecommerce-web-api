@@ -9,7 +9,7 @@ export class CategoryService {
   // TODO: findOne()
   async findOne(_id: mongoose.Types.ObjectId | number) {
     try {
-      const categoryDoc = await categoryRepo.findById();
+      const categoryDoc = await categoryRepo.findById(_id);
       return categoryDoc
     } catch (error) {
       console.error(error)

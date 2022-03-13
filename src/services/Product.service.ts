@@ -7,18 +7,18 @@ const productRepo: ProductRepo = new ProductRepo();
 
 export class ProductService {
   // TODO: findAll()
-  async findAll() {
+
+  // TODO: findOne()
+
+  // TODO: createOne()
+  async createOne(data: Product) {
     try {
-      const productDoc = await productRepo.findAll();
+      const productDoc = await productRepo.create(data);
       return productDoc;
     } catch (error) {
       console.error(error);
     }
   }
-  // TODO: findOne()
-
-  // TODO: createOne()
-
   // TODO: updateOne()
 
   // TODO: deleteOne()

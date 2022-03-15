@@ -12,16 +12,16 @@ const schema = new mongoose.Schema({
     government: String
   },
   oreders: [{
-    products: [{ productId: mongoose.Types.ObjectId, count: Number }],
+    products: [{ productId: mongoose.Types.ObjectId, count: Number, ref: 'products' }],
     totalCount: Number,
     paymentMethod: { enum: ['cash', 'visa'] }
   }],
   cart: [{
-    products: [{ productId: mongoose.Types.ObjectId, count: Number }],
+    products: [{ productId: mongoose.Types.ObjectId, count: Number, ref: 'products' }],
     totalCount: Number
   }],
   wishList: [{
-    products: [{ productId: mongoose.Types.ObjectId, count: Number }],
+    products: [{ productId: mongoose.Types.ObjectId, count: Number, ref: 'products' }],
     totalCount: Number
   }]
 });
@@ -31,17 +31,17 @@ export const UserModel = mongoose.model('users', schema);
 
 // generate user type as User interface
 export interface User {
-    name: String,
-    email: String,
-    password: String,
-    phoneNumber: String,
+    name: string,
+    email: string,
+    password: string,
+    phoneNumber: string,
     address: {
-      city: String,
-      street: String,
-      government: String
+      city: string,
+      street: string,
+      government: string
     },
     oreders: [{
-      products: [{ productId: mongoose.Types.ObjectId, count: Number }],
+      products: [{ productId: mongoose.Types.ObjectId, count: Number}],
       totalCount: Number,
       paymentMethod: { enum: ['cash', 'visa'] }
     }],

@@ -4,6 +4,14 @@ const productRepo = new ProductRepo();
 
 export class ProductService {
   // TODO: findAll()
+  async findAll(filter: Object = {}) {
+    try {
+      const productDoc = await productRepo.findAll(filter);
+      return productDoc;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // TODO: findOne()
 

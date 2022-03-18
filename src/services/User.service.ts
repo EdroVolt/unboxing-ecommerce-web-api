@@ -10,9 +10,9 @@ export class UserService {
   // TODO: createOne()
 
   // TODO: updateOne()
-  async updateOne(_id: mongoose.Types.ObjectId | number) {
+  async updateOne(_id: mongoose.Types.ObjectId | number, data: object) {
     try {
-      const userDoc = await userRepo.updateOne(_id);
+      const userDoc = await userRepo.updateOne(_id, data);
       return userDoc;
     } catch (err) {
       console.log(err);

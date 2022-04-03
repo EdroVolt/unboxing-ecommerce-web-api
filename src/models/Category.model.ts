@@ -12,7 +12,7 @@ export const CategoryModel = mongoose.model('categories', schema);
 
 // generate category type as Category interface
 export interface Category {
-    _id: mongoose.Types.ObjectId,
-    name: string,
-    image: string
+  _id: mongoose.Types.ObjectId,
+  name: string,
+  image: string
 }

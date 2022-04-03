@@ -41,7 +41,7 @@ export abstract class BaseRepo<schema> {
     });
   }
 
-  updateOne(_id: mongoose.Types.ObjectId | number, newData: Object) {
+  updateOne(_id: mongoose.Types.ObjectId | number, newData: {}) {
     return new Promise((resolve, reject) => {
       model(this._collectionName)
         .findByIdAndUpdate(_id, newData)

@@ -41,16 +41,16 @@ export interface User {
       government: string
     },
     oreders: [{
-      products: [{ productId: mongoose.Types.ObjectId, count: Number}],
-      totalCount: Number,
-      paymentMethod: { enum: ['cash', 'visa'] }
+      products: [{ productId: mongoose.Types.ObjectId, count: number}],
+      totalCount: number,
+      paymentMethod: 'cash' | 'visa'
     }],
     cart: [{
-      products: [{ productId: mongoose.Types.ObjectId, count: Number }],
+      products: [{ productId: mongoose.Types.ObjectId, count: number }],
       totalCount: Number
     }],
     wishList: [{
-      products: [{ productId: mongoose.Types.ObjectId, count: Number }],
-      totalCount: Number
+      products: [{ productId: mongoose.Types.ObjectId, count: number }],
+      totalCount: number
     }]
 }

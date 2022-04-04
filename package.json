@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/EdroVolt/ecommerce-web-api#readme",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

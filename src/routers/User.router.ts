@@ -1,6 +1,7 @@
 import express, { IRouter } from 'express';
 import { IRouterCustom } from '../core/interface/router.interface';
-import { UserController } from '../controllers/user.controller';
+import { UserController } from '../controllers/User.controller';
+
 const userController = new UserController();
 
 export class UserRouter implements IRouterCustom {

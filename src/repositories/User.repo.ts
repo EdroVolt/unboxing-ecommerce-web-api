@@ -1,4 +1,4 @@
-import { User, UserModel } from '../models/User.model'; 
+import { User, UserModel } from '../models/User.model';
 import { BaseRepo } from './Base.repo';
 
 export class UserRepo extends BaseRepo<User> {

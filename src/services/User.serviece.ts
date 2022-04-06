@@ -1,5 +1,5 @@
 import { BaseRepo } from '../repositories/Base.repo';
-import { User } from '../models/Users.model';
+import { User } from '../models/User.model';
 import { BaseService } from './Base.service';
 import { UserRepo } from '../repositories/User.repo';
 

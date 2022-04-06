@@ -1,8 +1,9 @@
 import { Server } from './core/customServer';
 import { CorsMiddleware } from './core/middleware/cors.middleware';
 import { ErrorMiddleware } from './core/middleware/error.middleware';
-import { BodyParserMiddleware } from 'core/middleware/bodyParser.middleware';
-import { MoragnMiddleware } from 'core/middleware/morgan.middleware';
+import { BodyParserMiddleware } from './core/middleware/bodyParser.middleware';
+import { MoragnMiddleware } from './core/middleware/morgan.middleware';
+import { UserRouter } from './routers/User.router';
 
 // -------------- server init ---------------
 const app = new Server();
@@ -14,6 +15,7 @@ app.middleware(new BodyParserMiddleware());
 app.middleware(new MoragnMiddleware());
 
 // -------------- Routers -------------------
+app.route(new UserRouter());
 
 // -------------- Err MW --------------------
 app.errorMiddleware(new ErrorMiddleware());

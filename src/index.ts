@@ -4,6 +4,7 @@ import { ErrorMiddleware } from './core/middleware/error.middleware';
 import { BodyParserMiddleware } from './core/middleware/bodyParser.middleware';
 import { MoragnMiddleware } from './core/middleware/morgan.middleware';
 
+import { ProductRouter } from './routers/Product.Router';
 import { UserRouter } from './routers/User.router';
 import { CategoryRouter } from './routers/Category.Router';
 
@@ -17,8 +18,9 @@ app.middleware(new BodyParserMiddleware());
 app.middleware(new MoragnMiddleware());
 
 // -------------- Routers -------------------
-app.route(new UserRouter());
+app.route(new ProductRouter());
 app.route(new CategoryRouter());
+app.route(new UserRouter());
 
 // -------------- Err MW --------------------
 app.errorMiddleware(new ErrorMiddleware());

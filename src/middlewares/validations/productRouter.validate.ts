@@ -13,7 +13,7 @@ export default class ProductValidator implements IRouterValidator {
     });
 
     try {
-      await schema.validateAsync({ _id: req.params.id });
+      await schema.validateAsync({ id: req.params.id });
       next();
     } catch (err) {
       next(err);
@@ -25,7 +25,7 @@ export default class ProductValidator implements IRouterValidator {
       name: Joi.string().min(3).max(35).required(),
       description: Joi.string().required(),
       count: Joi.number(),
-      size_count: Joi.object({
+      sizeCount: Joi.object({
         xs: Joi.number(),
         s: Joi.number(),
         md: Joi.number(),
@@ -62,7 +62,7 @@ export default class ProductValidator implements IRouterValidator {
       name: Joi.string().min(3).max(35).required(),
       description: Joi.string().required(),
       count: Joi.number(),
-      size_count: Joi.object({
+      sizeCount: Joi.object({
         xs: Joi.number(),
         s: Joi.number(),
         md: Joi.number(),
@@ -86,7 +86,7 @@ export default class ProductValidator implements IRouterValidator {
     });
 
     try {
-      await schema.validateAsync({ ...req.body, _id: req.params.id });
+      await schema.validateAsync({ ...req.body, id: req.params.id });
       next();
     } catch (err) {
       next(err);

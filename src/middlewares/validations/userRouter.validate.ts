@@ -13,7 +13,7 @@ export default class UserValidator implements IRouterValidator {
     });
 
     try {
-      await schema.validateAsync({ _id: req.params.id });
+      await schema.validateAsync({ id: req.params.id });
       next();
     } catch (err) {
       next(err);
@@ -95,9 +95,9 @@ export default class UserValidator implements IRouterValidator {
       password: Joi.string().pattern(/^[a-zA-Z0-9]{8,20}$/),
       phoneNumber: Joi.string().length(11),
       address: Joi.object({
-        city: Joi.string().min(3).max(20),
+        city: Joi.string().min(3).max(20).required(),
         street: Joi.string().min(3).max(20),
-        government: Joi.string().min(3).max(20)
+        government: Joi.string().min(3).max(20).required()
       }),
       orders: Joi.array().items(
         Joi.object({
@@ -142,7 +142,7 @@ export default class UserValidator implements IRouterValidator {
     });
 
     try {
-      await schema.validateAsync({ ...req.body, _id: req.params.id });
+      await schema.validateAsync({ ...req.body, id: req.params.id });
       next();
     } catch (err) {
       next(err);

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import Joi from 'joi';
 import IRouterValidator from 'interfaces/validator.interface';
 
-export default class categoryValidator implements IRouterValidator {
+export default class CategoryValidator implements IRouterValidator {
   async getOneOrDelete(
     req: Request,
     res: Response,
@@ -13,7 +13,7 @@ export default class categoryValidator implements IRouterValidator {
     });
 
     try {
-      await schema.validateAsync({ _id: req.params.id });
+      await schema.validateAsync({ id: req.params.id });
       next();
     } catch (err) {
       next(err);
@@ -40,7 +40,7 @@ export default class categoryValidator implements IRouterValidator {
       image: Joi.string().required()
     });
     try {
-      await schema.validateAsync({ ...req.body, _id: req.params.id });
+      await schema.validateAsync({ ...req.body, id: req.params.id });
       next();
     } catch (err) {
       next(err);

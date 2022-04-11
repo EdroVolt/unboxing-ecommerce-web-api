@@ -1,6 +1,6 @@
 import { BaseController } from './Base.controller';
 import { BaseService } from '../services/Base.service';
-import { UserService } from '../services/User.serviece';
+import { UserService } from '../services/User.service';
 
 import { User } from '../models/User.model';
 

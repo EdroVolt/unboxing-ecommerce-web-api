@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 // creat category schema
 const schema = new mongoose.Schema({
-  name: { String, required: true },
-  image: { String, required: true }
+  name: { type: String, required: true },
+  image: { type: String, required: true }
 });
 
 // add category schema to mongoose wih category collection

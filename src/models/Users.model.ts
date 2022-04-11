@@ -21,31 +21,27 @@ const schema = new mongoose.Schema({
       ],
       totalCount: Number,
       paymentMethod: { enum: ['cash', 'visa'] },
-      date: Date // NOTE: generate date on order creation
+      creationDate: Date // NOTE: generate date on order creation
     }
   ],
-  cart: [
-    {
-      products: [
-        {
-          productId: { type: mongoose.Types.ObjectId, ref: 'products' },
-          count: Number
-        }
-      ],
-      totalCount: Number
-    }
-  ],
-  wishList: [
-    {
-      products: [
-        {
-          productId: { type: mongoose.Types.ObjectId, ref: 'products' },
-          count: Number
-        }
-      ],
-      totalCount: Number
-    }
-  ]
+  cart: {
+    products: [
+      {
+        productId: { type: mongoose.Types.ObjectId, ref: 'products' },
+        count: Number
+      }
+    ],
+    totalCount: Number
+  },
+  wishList: {
+    products: [
+      {
+        productId: { type: mongoose.Types.ObjectId, ref: 'products' },
+        count: Number
+      }
+    ],
+    totalCount: Number
+  }
 });
 
 // add user schema to mongoose wih users collection
@@ -53,6 +49,7 @@ export const UserModel = mongoose.model('users', schema);
 
 // generate user type as User interface
 export interface User {
+  _id: mongoose.Types.ObjectId;
   name: string;
   email: string;
   password: string;
@@ -62,23 +59,20 @@ export interface User {
     street: string;
     government: string;
   };
-  oreders: [
+  orders: [
     {
-      products: [{ productId: mongoose.Types.ObjectId; count: number }];
+      products: { productId: mongoose.Types.ObjectId; count: number }[];
       totalCount: number;
       paymentMethod: 'cash' | 'visa';
+      creationDate?: Date;
     }
   ];
-  cart: [
-    {
-      products: [{ productId: mongoose.Types.ObjectId; count: number }];
-      totalCount: Number;
-    }
-  ];
-  wishList: [
-    {
-      products: [{ productId: mongoose.Types.ObjectId; count: number }];
-      totalCount: number;
-    }
-  ];
+  cart: {
+    products: { productId: mongoose.Types.ObjectId; count: number }[];
+    totalCount: number;
+  };
+  wishList: {
+    products: { productId: mongoose.Types.ObjectId; count: number }[];
+    totalCount: number;
+  };
 }

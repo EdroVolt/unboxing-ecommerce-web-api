@@ -30,6 +30,7 @@ const schema = new mongoose.Schema({
 export const ProductModel = mongoose.model('products', schema);
 
 export interface Product {
+  _id?: mongoose.Types.ObjectId;
   name: string;
   description: string;
   count: number;
@@ -40,7 +41,7 @@ export interface Product {
     l: number;
     xl: number;
   };
-  categoryId: mongoose.Types.ObjectId,
+  categoryId: mongoose.Types.ObjectId;
   ingredients: [string];
   images: [string];
   price: number;
@@ -48,7 +49,7 @@ export interface Product {
   offer: boolean;
   reviews: [
     {
-      userId: mongoose.Types.ObjectId,
+      userId: mongoose.Types.ObjectId;
       comment: string;
       rate: number;
     }

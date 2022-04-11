@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 
 // creat category schema
 const schema = new mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
   name: { String, required: true },
   image: { String, required: true }
 });
@@ -12,7 +11,7 @@ export const CategoryModel = mongoose.model('categories', schema);
 
 // generate category type as Category interface
 export interface Category {
-  _id: mongoose.Types.ObjectId,
-  name: string,
-  image: string
+  _id?: mongoose.Types.ObjectId;
+  name: string;
+  image: string;
 }

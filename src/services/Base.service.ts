@@ -7,7 +7,7 @@ export type BaseFilter = {
 };
 
 export abstract class BaseService<schema> {
-  abstract readonly _repoObj: BaseRepo<{}>;
+  abstract readonly _repoObj: BaseRepo<schema>;
 
   // TODO: findAll()
   async findAll(filter: BaseFilter) {
@@ -47,7 +47,7 @@ export abstract class BaseService<schema> {
   }
 
   // TODO: updateOne()
-  async updateOne(_id: mongoose.Types.ObjectId | number, data: schema) {
+  async updateOne(_id: mongoose.Types.ObjectId | number, data: {}) {
     try {
       await this._repoObj.updateOne(_id, data);
 

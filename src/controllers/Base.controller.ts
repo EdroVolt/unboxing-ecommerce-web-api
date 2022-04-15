@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { BaseFilter, BaseService } from '../services/Base.service';
 
 export abstract class BaseController<schema> {
-  abstract readonly _serviceObj: BaseService<{}>;
+  abstract readonly _serviceObj: BaseService<schema>;
 
   // TODO: getAll()
   getAll = async (req: Request, res: Response, next: NextFunction) => {
@@ -40,7 +40,7 @@ export abstract class BaseController<schema> {
 
   // TODO: put()
   put = async (req: Request, res: Response, next: NextFunction) => {
-    const doc: schema = req.body;
+    const doc: {} = req.body;
     const _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id);
     try {
       const data = await this._serviceObj.updateOne(_id, doc);

@@ -10,13 +10,13 @@ export abstract class BaseService<schema> {
   abstract readonly _repoObj: BaseRepo<schema>;
 
   // TODO: findAll()
-  async findAll(filter: BaseFilter) {
+  async findAll(filter: BaseFilter, fields: string | null = null) {
     const limit = 10;
     const skip = (filter.page - 1) * limit;
 
     if (filter.name) filter.name = new RegExp(`${filter.name}`, 'i');
     try {
-      const docs = await this._repoObj.findAll({ ...filter }, skip, limit);
+      const docs = await this._repoObj.findAll({ ...filter }, skip, limit, fields);
       const count = await this._repoObj.countDocuments({ ...filter });
 
       const numOfPages = Math.ceil(count / limit);
@@ -27,9 +27,12 @@ export abstract class BaseService<schema> {
   }
 
   // TODO: findOne()
-  async findOne(_id: mongoose.Types.ObjectId | number) {
+  async findOne(
+    _id: mongoose.Types.ObjectId | number,
+    fields: string | null = null
+  ) {
     try {
-      const doc = await this._repoObj.findById(_id);
+      const doc = await this._repoObj.findById(_id, fields);
       return doc;
     } catch (err: Error | any) {
       throw new Error(err.message);

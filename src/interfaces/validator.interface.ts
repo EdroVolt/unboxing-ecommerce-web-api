@@ -7,7 +7,17 @@ export default interface IRouterValidator {
    * @param res
    * @param next
    *
-   * @ validate get request id in params [ exist and with type ObjectId ]
+   * @ validate the GET request query string [ with the same type and with no unpredictable data ]
+   */
+  getAll(req: Request, res: Response, next: NextFunction): Promise<void>;
+
+  /**
+   *
+   * @param req
+   * @param res
+   * @param next
+   *
+   * @ validate the GET request id in params [ exist and with type ObjectId ]
    */
   getOneOrDelete(req: Request, res: Response, next: NextFunction): Promise<void>;
 
@@ -17,7 +27,7 @@ export default interface IRouterValidator {
    * @param res
    * @param next
    *
-   * @ validate post request body [ exist and with type "schema" ]
+   * @ validate POST request body [ exist and with type "schema" ]
    */
   post(req: Request, res: Response, next: NextFunction): Promise<void>;
 
@@ -27,7 +37,7 @@ export default interface IRouterValidator {
    * @param res
    * @param next
    *
-   * @ validate put request body [ exist and with type "schema" ]
+   * @ validate PUT request body [ exist and with type "schema" ]
    */
   put(req: Request, res: Response, next: NextFunction): Promise<void>;
 }

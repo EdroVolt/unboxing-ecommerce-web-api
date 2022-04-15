@@ -3,6 +3,21 @@ import Joi from 'joi';
 import IRouterValidator from 'interfaces/validator.interface';
 
 export default class UserValidator implements IRouterValidator {
+  async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const schema = Joi.object({
+      page: Joi.number().min(1).max(50000),
+      name: Joi.string().length(50)
+      // TODO: city, government
+    });
+
+    try {
+      await schema.validateAsync({ ...req.body });
+      next();
+    } catch (err) {
+      next(err);
+    }
+  }
+
   async getOneOrDelete(
     req: Request,
     res: Response,
@@ -23,11 +38,15 @@ export default class UserValidator implements IRouterValidator {
   async post(req: Request, res: Response, next: NextFunction): Promise<void> {
     const schema = Joi.object({
       name: Joi.string().min(3).max(35).required(),
-      email: Joi.string().email({
-        minDomainSegments: 2,
-        tlds: { allow: true }
-      }),
-      password: Joi.string().pattern(/^[a-zA-Z0-9]{8,20}$/),
+      email: Joi.string()
+        .email({
+          minDomainSegments: 2,
+          tlds: { allow: true }
+        })
+        .required(),
+      password: Joi.string()
+        .pattern(/^[a-zA-Z0-9]{8,20}$/)
+        .required(),
       phoneNumber: Joi.string().length(11),
       address: Joi.object({
         city: Joi.string().min(3).max(20),
@@ -39,8 +58,9 @@ export default class UserValidator implements IRouterValidator {
           products: Joi.array()
             .items(
               Joi.object({
-                productId: Joi.string().length(24).required(),
-                count: Joi.number().min(1).required()
+                product: Joi.string().length(24).required(),
+                count: Joi.number().min(1).required(),
+                size: Joi.string().max(15).required()
               }).required()
             )
             .required(),
@@ -104,8 +124,9 @@ export default class UserValidator implements IRouterValidator {
           products: Joi.array()
             .items(
               Joi.object({
-                productId: Joi.string().length(24).required(),
-                count: Joi.number().min(1).required()
+                product: Joi.string().length(24).required(),
+                count: Joi.number().min(1).required(),
+                size: Joi.string().max(15).required()
               }).required()
             )
             .required(),

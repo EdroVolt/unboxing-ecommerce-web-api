@@ -3,6 +3,23 @@ import IRouterValidator from 'interfaces/validator.interface';
 import Joi from 'joi';
 
 export default class ProductValidator implements IRouterValidator {
+  async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const schema = Joi.object({
+      page: Joi.number().min(1).max(50000),
+      category: Joi.string().length(24).required(),
+      name: Joi.string().length(50),
+      offer: Joi.boolean()
+      // TODO: maxPrice and minPrice
+    });
+
+    try {
+      await schema.validateAsync({ ...req.body });
+      next();
+    } catch (err) {
+      next(err);
+    }
+  }
+
   async getOneOrDelete(
     req: Request,
     res: Response,
@@ -32,7 +49,7 @@ export default class ProductValidator implements IRouterValidator {
         l: Joi.number(),
         xl: Joi.number()
       }),
-      categoryId: Joi.string().length(24).required(),
+      category: Joi.string().length(24).required(),
       ingredients: Joi.array().items(Joi.string()),
       images: Joi.array().items(Joi.string()),
       price: Joi.number().required(),

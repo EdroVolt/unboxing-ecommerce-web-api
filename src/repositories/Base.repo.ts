@@ -4,10 +4,12 @@ export abstract class BaseRepo<schema> {
   abstract readonly _collectionName: string;
   abstract readonly _model: Object;
 
-  findAll(filter: Object = {}) {
+  findAll(filter: Object = {}, skip: number = 0, limit: number = 10) {
     return new Promise((resolve, reject) => {
       model(this._collectionName)
         .find(filter)
+        .skip(skip)
+        .limit(limit)
         .exec((err, docs) => {
           if (err) reject(err);
           resolve(docs);
@@ -59,6 +61,17 @@ export abstract class BaseRepo<schema> {
         .exec((err, doc) => {
           if (err) reject(err);
           resolve(doc);
+        });
+    });
+  }
+
+  countDocuments(filter: {} = {}): Promise<number> {
+    return new Promise((resolve, reject) => {
+      model(this._collectionName)
+        .countDocuments(filter)
+        .exec((err, count) => {
+          if (err) reject(err);
+          resolve(count);
         });
     });
   }

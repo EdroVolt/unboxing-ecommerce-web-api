@@ -1,14 +1,26 @@
 import mongoose from 'mongoose';
 import { BaseRepo } from '../repositories/Base.repo';
 
+export type BaseFilter = {
+  page: number;
+  name?: RegExp;
+};
+
 export abstract class BaseService<schema> {
   abstract readonly _repoObj: BaseRepo<{}>;
 
   // TODO: findAll()
-  async findAll(filter: Object = {}) {
+  async findAll(filter: BaseFilter) {
+    const limit = 10;
+    const skip = (filter.page - 1) * limit;
+
+    if (filter.name) filter.name = new RegExp(`${filter.name}`, 'i');
     try {
-      const docs = await this._repoObj.findAll(filter);
-      return docs;
+      const docs = await this._repoObj.findAll({ ...filter }, skip, limit);
+      const count = await this._repoObj.countDocuments({ ...filter });
+
+      const numOfPages = Math.ceil(count / limit);
+      return { data: docs, numOfPages };
     } catch (err: Error | any) {
       throw new Error(err.message);
     }

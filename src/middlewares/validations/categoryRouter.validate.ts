@@ -3,6 +3,20 @@ import Joi from 'joi';
 import IRouterValidator from 'interfaces/validator.interface';
 
 export default class CategoryValidator implements IRouterValidator {
+  async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const schema = Joi.object({
+      page: Joi.number().min(1).max(50000),
+      name: Joi.string().length(50)
+    });
+
+    try {
+      await schema.validateAsync({ ...req.body });
+      next();
+    } catch (err) {
+      next(err);
+    }
+  }
+
   async getOneOrDelete(
     req: Request,
     res: Response,

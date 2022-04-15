@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
-import { BaseService } from '../services/Base.service';
+import { BaseFilter, BaseService } from '../services/Base.service';
 
 export abstract class BaseController<schema> {
   abstract readonly _serviceObj: BaseService<{}>;
 
   // TODO: getAll()
   getAll = async (req: Request, res: Response, next: NextFunction) => {
-    const filter = req.query.filter || {};
+    const filter: BaseFilter = { page: 1, ...req.query };
     try {
       const data = await this._serviceObj.findAll(filter);
       res.status(200).json(data);

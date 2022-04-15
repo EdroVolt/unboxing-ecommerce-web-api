@@ -22,7 +22,8 @@ const schema = new mongoose.Schema(
           }
         ],
         totalCount: Number,
-        paymentMethod: { enum: ['cash', 'visa'] }
+        paymentMethod: { enum: ['cash', 'visa'] },
+        createdAt: Date
       }
     ],
     cart: {
@@ -69,7 +70,7 @@ export interface User {
       products: { product: mongoose.Types.ObjectId; count: number }[];
       totalCount: number;
       paymentMethod: 'cash' | 'visa';
-      creationDate?: Date;
+      createdAt?: Date;
     }
   ];
   cart: {

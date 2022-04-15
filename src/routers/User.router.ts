@@ -21,6 +21,10 @@ export class UserRouter implements IRouterCustom {
       .put(userValidator.put, userController.put)
       .delete(userValidator.getOneOrDelete, userController.delete);
 
+    userRouter.route('/users/:id/orders').post(userController.postOrder);
+    userRouter.route('/users/:id/cart').put(userController.putCart);
+    userRouter.route('/users/:id/wishList').put(userController.putWishList);
+
     return userRouter;
   }
 }

@@ -21,6 +21,8 @@ export class ProductRouter implements IRouterCustom {
       .put(productValidator.put, productController.put)
       .delete(productValidator.getOneOrDelete, productController.delete);
 
+    productRouter.route('/products/:id/reviews').post(productController.postReview);
+
     return productRouter;
   }
 }

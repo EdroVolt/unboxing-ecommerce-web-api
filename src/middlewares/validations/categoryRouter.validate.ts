@@ -6,11 +6,12 @@ export default class CategoryValidator implements IRouterValidator {
   async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     const schema = Joi.object({
       page: Joi.number().min(1).max(50000),
-      name: Joi.string().length(50)
+      name: Joi.string().length(50),
+      fields: Joi.string().length(100)
     });
 
     try {
-      await schema.validateAsync({ ...req.body });
+      await schema.validateAsync({ ...req.query });
       next();
     } catch (err) {
       next(err);

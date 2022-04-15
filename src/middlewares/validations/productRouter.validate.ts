@@ -8,12 +8,13 @@ export default class ProductValidator implements IRouterValidator {
       page: Joi.number().min(1).max(50000),
       category: Joi.string().length(24).required(),
       name: Joi.string().length(50),
-      offer: Joi.boolean()
+      offer: Joi.boolean(),
+      fields: Joi.string().length(100)
       // TODO: maxPrice and minPrice
     });
 
     try {
-      await schema.validateAsync({ ...req.body });
+      await schema.validateAsync({ ...req.query });
       next();
     } catch (err) {
       next(err);

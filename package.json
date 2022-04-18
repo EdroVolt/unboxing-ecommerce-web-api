@@ -4,8 +4,9 @@
   "description": "ecommerce node server api",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon",
-    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon",
+    "postinstall": "tsc",
     "test": "jest"
   },
   "repository": {
@@ -17,6 +18,9 @@
     "typescript",
     "express"
   ],
+  "engines": {
+    "node": "16.13.0"
+  },
   "author": "Unboxing.js team",
   "license": "ISC",
   "bugs": {

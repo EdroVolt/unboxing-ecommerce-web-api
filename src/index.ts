@@ -10,7 +10,8 @@ import { CategoryRouter } from './routers/Category.Router';
 
 // -------------- server init ---------------
 const app = new Server();
-app.listen(8080);
+const PORT = parseInt(process.env.PORT as string);
+app.listen(PORT || 8080);
 
 // -------------- MWs -----------------------
 app.middleware(new CorsMiddleware());

@@ -12,6 +12,13 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "semi": "off",
-    "space-before-function-paren": ["error", "never"]
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ]
   }
 }

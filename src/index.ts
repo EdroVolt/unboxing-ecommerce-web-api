@@ -1,7 +1,12 @@
-import { UserRouter } from './routers/User.router';
 import { Server } from './core/customServer';
 import { CorsMiddleware } from './core/middleware/cors.middleware';
 import { ErrorMiddleware } from './core/middleware/error.middleware';
+import { BodyParserMiddleware } from './core/middleware/bodyParser.middleware';
+import { MoragnMiddleware } from './core/middleware/morgan.middleware';
+
+import { ProductRouter } from './routers/Product.Router';
+import { UserRouter } from './routers/User.router';
+import { CategoryRouter } from './routers/Category.Router';
 
 // -------------- server init ---------------
 const app = new Server();
@@ -9,8 +14,13 @@ app.listen(8080);
 
 // -------------- MWs -----------------------
 app.middleware(new CorsMiddleware());
+app.middleware(new BodyParserMiddleware());
+app.middleware(new MoragnMiddleware());
 
 // -------------- Routers -------------------
+app.route(new ProductRouter());
+app.route(new CategoryRouter());
 app.route(new UserRouter());
+
 // -------------- Err MW --------------------
 app.errorMiddleware(new ErrorMiddleware());

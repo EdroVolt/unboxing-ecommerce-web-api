@@ -24,9 +24,11 @@
   },
   "homepage": "https://github.com/EdroVolt/ecommerce-web-api#readme",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "joi": "^17.6.0",
     "mongoose": "^6.2.4",
     "morgan": "^1.10.0"
   },
@@ -34,6 +36,7 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.1",
+    "@types/morgan": "^1.9.3",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",

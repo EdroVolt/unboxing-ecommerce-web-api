@@ -10,6 +10,7 @@ import { RegisterRouter } from './routers/Register.Router';
 import { SigninRouter } from './routers/Login.Router';
 import { AdminService } from './services/Admin.service';
 import bcrypt from 'bcrypt';
+import { RegisterController } from 'controllers/Register.controller';
 // -------------- server init ---------------
 const app = new Server();
 const PORT = parseInt(process.env.PORT as string);

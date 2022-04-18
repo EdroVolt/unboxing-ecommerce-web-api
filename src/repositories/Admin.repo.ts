@@ -1,9 +1,11 @@
 import { model } from 'mongoose';
-import { Admin, Admin_model } from '../models/Admin.model';
+import { Admin, AdminModel } from '../models/Admin.model';
 import { BaseRepo } from './Base.repo';
+
 export class AdminRepo extends BaseRepo<Admin> {
-  _model = Admin_model;
+  _model = AdminModel;
   _collectionName: string = 'admins';
+
   findByEmail = async (email: string) => {
     return new Promise((resolve, reject) => {
       model(this._collectionName)

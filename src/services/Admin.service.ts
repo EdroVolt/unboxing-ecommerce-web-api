@@ -1,6 +1,7 @@
 import { Admin } from 'models/Admin.model';
 import { AdminRepo } from '../repositories/Admin.repo';
 import { BaseService } from './Base.service';
+
 export class AdminService extends BaseService<Admin> {
   _repoObj = new AdminRepo();
   async findOneByEmail(email: string) {

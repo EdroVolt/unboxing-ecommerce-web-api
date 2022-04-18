@@ -1,5 +1,4 @@
 import express, { IRouter } from 'express';
-import { JwtChecking } from '../middlewares/Auth';
 import { IRouterCustom } from '../core/interface/router.interface';
 import { SigninController } from './../controllers/Signin.controller';
 

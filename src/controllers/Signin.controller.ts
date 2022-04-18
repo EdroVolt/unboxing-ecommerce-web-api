@@ -11,6 +11,7 @@ const jwtChecking = new JwtChecking();
 export class SigninController {
   _serviceObj = new UserService();
   _serviceAdminObj = new AdminService();
+
   getAuth = async (req: Request, res: Response, next: NextFunction) => {
     const email: string = req.body.email;
     try {
@@ -28,6 +29,7 @@ export class SigninController {
         const token = jwtChecking.signinJwt(user, 'user');
         res.status(200).json({ user, token });
       }
+      res.status(401).send('unauthorized');
     } catch (err) {
       next(err);
     }

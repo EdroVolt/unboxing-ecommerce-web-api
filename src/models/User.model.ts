@@ -1,48 +1,54 @@
 import mongoose from 'mongoose';
 
 // creat user schema
-const schema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  phoneNumber: String,
-  address: {
-    city: String,
-    street: String,
-    government: String
-  },
-  orders: [
-    {
+const schema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    phoneNumber: String,
+    address: {
+      city: String,
+      street: String,
+      government: String
+    },
+    orders: [
+      {
+        products: [
+          {
+            product: { type: mongoose.Types.ObjectId, ref: 'products' },
+            count: Number,
+            size: String
+          }
+        ],
+        totalCount: Number,
+        paymentMethod: { enum: ['cash', 'visa'] },
+        createdAt: Date
+      }
+    ],
+    cart: {
       products: [
         {
-          productId: { type: mongoose.Types.ObjectId, ref: 'products' },
-          count: Number
+          product: { type: mongoose.Types.ObjectId, ref: 'products' },
+          count: Number,
+          size: String
         }
       ],
-      totalCount: Number,
-      paymentMethod: { enum: ['cash', 'visa'] },
-      creationDate: Date // NOTE: generate date on order creation
+      totalCount: Number
+    },
+    wishList: {
+      products: [
+        {
+          product: { type: mongoose.Types.ObjectId, ref: 'products' },
+          count: Number,
+          size: String
+        }
+      ],
+      totalCount: Number
     }
-  ],
-  cart: {
-    products: [
-      {
-        productId: { type: mongoose.Types.ObjectId, ref: 'products' },
-        count: Number
-      }
-    ],
-    totalCount: Number
   },
-  wishList: {
-    products: [
-      {
-        productId: { type: mongoose.Types.ObjectId, ref: 'products' },
-        count: Number
-      }
-    ],
-    totalCount: Number
-  }
-});
+  { timestamps: true }
+);
 
 // add user schema to mongoose wih users collection
 export const UserModel = mongoose.model('users', schema);
@@ -61,18 +67,18 @@ export interface User {
   };
   orders: [
     {
-      products: { productId: mongoose.Types.ObjectId; count: number }[];
+      products: { product: mongoose.Types.ObjectId; count: number }[];
       totalCount: number;
       paymentMethod: 'cash' | 'visa';
-      creationDate?: Date;
+      createdAt?: Date;
     }
   ];
   cart: {
-    products: { productId: mongoose.Types.ObjectId; count: number }[];
+    products: { product: mongoose.Types.ObjectId; count: number }[];
     totalCount: number;
   };
   wishList: {
-    products: { productId: mongoose.Types.ObjectId; count: number }[];
+    products: { product: mongoose.Types.ObjectId; count: number }[];
     totalCount: number;
   };
 }

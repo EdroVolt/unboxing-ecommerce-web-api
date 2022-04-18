@@ -3,13 +3,13 @@ import mongoose from 'mongoose';
 import { BaseService } from '../services/Base.service';
 
 export abstract class BaseController<schema> {
-  abstract readonly _serviceObj: BaseService<{}>;
+  abstract readonly _serviceObj: BaseService<schema>;
 
   // TODO: getAll()
   getAll = async (req: Request, res: Response, next: NextFunction) => {
-    const filter = req.query.filter || {};
+    const { fields = null, ...filter } = { page: 1, ...req.query };
     try {
-      const data = await this._serviceObj.findAll(filter);
+      const data = await this._serviceObj.findAll(filter, fields);
       res.status(200).json(data);
     } catch (err) {
       next(err);
@@ -19,8 +19,9 @@ export abstract class BaseController<schema> {
   // TODO: getOne()
   getOne = async (req: Request, res: Response, next: NextFunction) => {
     const _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id);
+    const { fields = null } = { ...req.query };
     try {
-      const data = await this._serviceObj.findOne(_id);
+      const data = await this._serviceObj.findOne(_id, fields);
       res.status(200).json(data);
     } catch (err) {
       next(err);
@@ -40,7 +41,7 @@ export abstract class BaseController<schema> {
 
   // TODO: put()
   put = async (req: Request, res: Response, next: NextFunction) => {
-    const doc: schema = req.body;
+    const doc: {} = req.body;
     const _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id);
     try {
       const data = await this._serviceObj.updateOne(_id, doc);

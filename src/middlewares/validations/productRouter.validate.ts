@@ -3,6 +3,24 @@ import IRouterValidator from 'interfaces/validator.interface';
 import Joi from 'joi';
 
 export default class ProductValidator implements IRouterValidator {
+  async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const schema = Joi.object({
+      page: Joi.number().min(1).max(50000),
+      category: Joi.string().length(24).required(),
+      name: Joi.string().length(50),
+      offer: Joi.boolean(),
+      fields: Joi.string().length(100)
+      // TODO: maxPrice and minPrice
+    });
+
+    try {
+      await schema.validateAsync({ ...req.query });
+      next();
+    } catch (err) {
+      next(err);
+    }
+  }
+
   async getOneOrDelete(
     req: Request,
     res: Response,
@@ -13,7 +31,7 @@ export default class ProductValidator implements IRouterValidator {
     });
 
     try {
-      await schema.validateAsync({ _id: req.params.id });
+      await schema.validateAsync({ id: req.params.id });
       next();
     } catch (err) {
       next(err);
@@ -25,14 +43,14 @@ export default class ProductValidator implements IRouterValidator {
       name: Joi.string().min(3).max(35).required(),
       description: Joi.string().required(),
       count: Joi.number(),
-      size_count: Joi.object({
+      sizeCount: Joi.object({
         xs: Joi.number(),
         s: Joi.number(),
         md: Joi.number(),
         l: Joi.number(),
         xl: Joi.number()
       }),
-      categoryId: Joi.string().length(24).required(),
+      category: Joi.string().length(24).required(),
       ingredients: Joi.array().items(Joi.string()),
       images: Joi.array().items(Joi.string()),
       price: Joi.number().required(),
@@ -62,7 +80,7 @@ export default class ProductValidator implements IRouterValidator {
       name: Joi.string().min(3).max(35).required(),
       description: Joi.string().required(),
       count: Joi.number(),
-      size_count: Joi.object({
+      sizeCount: Joi.object({
         xs: Joi.number(),
         s: Joi.number(),
         md: Joi.number(),
@@ -86,7 +104,7 @@ export default class ProductValidator implements IRouterValidator {
     });
 
     try {
-      await schema.validateAsync({ ...req.body, _id: req.params.id });
+      await schema.validateAsync({ ...req.body, id: req.params.id });
       next();
     } catch (err) {
       next(err);

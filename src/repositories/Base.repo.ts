@@ -3,11 +3,21 @@ import mongoose, { model } from 'mongoose';
 export abstract class BaseRepo<schema> {
   abstract readonly _collectionName: string;
   abstract readonly _model: Object;
+  // space seperated fields to populate from model
+  readonly _populate: string = '';
 
-  findAll(filter: Object = {}) {
+  findAll(
+    filter: Object = {},
+    skip: number = 0,
+    limit: number = 10,
+    fields: string | null = null
+  ) {
     return new Promise((resolve, reject) => {
       model(this._collectionName)
-        .find(filter)
+        .find(filter, fields)
+        .populate(this._populate)
+        .skip(skip)
+        .limit(limit)
         .exec((err, docs) => {
           if (err) reject(err);
           resolve(docs);
@@ -15,10 +25,11 @@ export abstract class BaseRepo<schema> {
     });
   }
 
-  findById(_id: mongoose.Types.ObjectId | number) {
+  findById(_id: mongoose.Types.ObjectId | number, fields: string | null = null) {
     return new Promise((resolve, reject) => {
       model(this._collectionName)
-        .findById(_id)
+        .findById(_id, fields)
+        .populate(this._populate)
         .exec((err, doc) => {
           if (err) reject(err);
           resolve(doc);
@@ -59,6 +70,17 @@ export abstract class BaseRepo<schema> {
         .exec((err, doc) => {
           if (err) reject(err);
           resolve(doc);
+        });
+    });
+  }
+
+  countDocuments(filter: {} = {}): Promise<number> {
+    return new Promise((resolve, reject) => {
+      model(this._collectionName)
+        .countDocuments(filter)
+        .exec((err, count) => {
+          if (err) reject(err);
+          resolve(count);
         });
     });
   }

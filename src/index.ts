@@ -12,7 +12,8 @@ import { AdminService } from './services/Admin.service';
 import bcrypt from 'bcrypt';
 // -------------- server init ---------------
 const app = new Server();
-app.listen(8080);
+const PORT = parseInt(process.env.PORT as string);
+app.listen(PORT || 8080);
 
 //
 // const adminService = new AdminService();

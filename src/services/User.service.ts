@@ -17,7 +17,7 @@ export class UserService extends BaseService<User> {
       user.orders.push(order);
       user.save();
 
-      return user;
+      return user.orders;
     } catch (err: Error | any) {
       throw new Error(err.message);
     }
@@ -30,7 +30,7 @@ export class UserService extends BaseService<User> {
       user.cart = cart;
       user.save();
 
-      return user;
+      return user.cart;
     } catch (err: Error | any) {
       throw new Error(err.message);
     }
@@ -46,7 +46,7 @@ export class UserService extends BaseService<User> {
       user.wishList = wishList;
       user.save();
 
-      return user;
+      return user.wishList;
     } catch (err: Error | any) {
       throw new Error(err.message);
     }

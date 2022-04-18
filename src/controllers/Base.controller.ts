@@ -19,8 +19,9 @@ export abstract class BaseController<schema> {
   // TODO: getOne()
   getOne = async (req: Request, res: Response, next: NextFunction) => {
     const _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id);
+    const { fields = null } = { ...req.query };
     try {
-      const data = await this._serviceObj.findOne(_id);
+      const data = await this._serviceObj.findOne(_id, fields);
       res.status(200).json(data);
     } catch (err) {
       next(err);

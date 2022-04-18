@@ -1,10 +1,9 @@
-import { User, UserModel } from '../models/User.model';
-import { BaseRepo } from './Base.repo';
 import { model } from 'mongoose';
-export class UserRepo extends BaseRepo<User> {
-  _collectionName: string = 'users';
-  _model: Object = UserModel;
-
+import { Admin, Admin_model } from '../models/Admin.model';
+import { BaseRepo } from './Base.repo';
+export class AdminRepo extends BaseRepo<Admin> {
+  _model = Admin_model;
+  _collectionName: string = 'admins';
   findByEmail = async (email: string) => {
     return new Promise((resolve, reject) => {
       model(this._collectionName)

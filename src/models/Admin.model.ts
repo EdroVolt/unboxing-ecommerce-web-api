@@ -8,10 +8,10 @@ const schema = new mongoose.Schema({
   role: String
 });
 
-mongoose.model('admins', schema);
+export const Admin_model = mongoose.model('admins', schema);
 // generate admin type as Admin interface
 export interface Admin {
-  _id: mongoose.Types.ObjectId;
+  _id?: mongoose.Types.ObjectId;
   name: string;
   email: string;
   password: string;

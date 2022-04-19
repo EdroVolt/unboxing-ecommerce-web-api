@@ -6,7 +6,6 @@ import UserOrder from '../interfaces/userOrder.interface';
 import UserCart from '../interfaces/userCart.interface';
 import UserWishList from '../interfaces/userWishList.interface';
 import { ProductRepo } from '../repositories/Product.repo';
-import { Product } from 'models/Product.model';
 
 const productRepo = new ProductRepo();
 

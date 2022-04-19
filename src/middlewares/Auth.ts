@@ -15,7 +15,7 @@ export class JwtChecking {
         if (error) {
           return res.status(401).send(error.message);
         } else {
-          res.locals.jwt = decoded;
+          return (res.locals.jwt = decoded);
           next();
         }
       });

@@ -20,7 +20,7 @@ const schema = new mongoose.Schema(
     offer: { type: Boolean, default: false },
     reviews: [
       {
-        userId: mongoose.Types.ObjectId,
+        userId: { type: mongoose.Types.ObjectId, ref: 'users' },
         comment: String,
         rate: Number
       }

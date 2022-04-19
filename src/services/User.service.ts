@@ -38,6 +38,7 @@ export class UserService extends BaseService<User> {
 
       for (const value of orderedProducts) {
         const product: any = await productRepo.findById(value.product);
+        product.count = product.sizeCount[value.size] - value.count;
         product.count = product.count - value.count;
         product.save();
       }

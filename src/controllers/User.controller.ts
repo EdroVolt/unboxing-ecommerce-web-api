@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { BaseController } from './Base.controller';
 import { UserService } from '../services/User.service';
+import * as jwt from 'jsonwebtoken';
 
 import { User } from '../models/User.model';
 import UserOrder from 'interfaces/userOrder.interface';
@@ -10,6 +11,18 @@ import UserWishList from 'interfaces/userWishList.interface';
 
 export class UserController extends BaseController<User> {
   _serviceObj: UserService = new UserService();
+
+  getMe = async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1] || '';
+    const tokenData: any = jwt.decode(token);
+
+    try {
+      const data = await this._serviceObj.findOne(tokenData?.id);
+      res.status(200).json(data);
+    } catch (err) {
+      next(err);
+    }
+  };
 
   postOrder = async (req: Request, res: Response, next: NextFunction) => {
     const _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id);

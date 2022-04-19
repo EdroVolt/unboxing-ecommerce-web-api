@@ -1,15 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { env } from 'process';
 import dotenv from 'dotenv';
-import { string } from 'joi';
 import { User } from './../models/User.model';
 import { Admin } from 'models/Admin.model';
 dotenv.config();
 
 export class JwtChecking {
   checkJwt = (req: Request, res: Response, next: NextFunction) => {
-    //Get the jwt token from the head
+    // Get the jwt token from the head
 
     const token = <string>req.headers.authorization?.split(' ')[1];
     if (token) {
@@ -25,10 +23,12 @@ export class JwtChecking {
       res.status(401).send('unauthorized');
     }
   };
+
   signinJwt = (data: User | Admin, role: string) => {
     const timestamp = new Date().getTime();
     const exprirationTime = timestamp + 1 * 10000;
     const experiration = Math.floor(exprirationTime / 1000);
+
     try {
       return jwt.sign(
         {
@@ -46,7 +46,8 @@ export class JwtChecking {
       throw new Error('unAuthorized');
     }
   };
-  //Try to validate the token and get data
+
+  // Try to validate the token and get data
   // try {
   //   jwtPayload = <any>jwt.verify(token, 'unboxing');
   //   res.locals.jwtPayload = jwtPayload;

@@ -11,9 +11,9 @@ const auth = new JwtChecking();
 export class UserRouter implements IRouterCustom {
   getRouter(): IRouter {
     const userRouter = express.Router();
+    userRouter.route('/users/me').get(auth.checkJwt, userController.getMe);
 
     userRouter.route('/users').get(auth.checkJwt, userController.getAll);
-    userRouter.route('/users/me').get(auth.checkJwt, userController.getMe);
 
     userRouter
       .route('/users/:id')

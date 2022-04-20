@@ -9,7 +9,7 @@ export abstract class BaseRepo<schema> {
   findAll(
     filter: Object = {},
     skip: number = 0,
-    limit: number = 10,
+    limit: number = 20,
     fields: string | null = null
   ) {
     return new Promise((resolve, reject) => {

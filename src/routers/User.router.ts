@@ -35,7 +35,7 @@ export class UserRouter implements IRouterCustom {
     userRouter
       .route('/users/me/wishList')
       .get(userController.getMyWishList)
-      .post(userController.deleteMyWishList)
+      .post(userController.postMyWishList)
       .put(auth.checkJwt, userController.putWishList)
       .delete(userController.deleteMyWishList);
 

@@ -11,7 +11,7 @@ export abstract class BaseService<schema> {
 
   // TODO: findAll()
   async findAll(filter: BaseFilter, fields: string | null = null) {
-    const limit = 10;
+    const limit = 20;
     const skip = (filter.page - 1) * limit;
 
     if (filter.name) filter.name = new RegExp(`${filter.name}`, 'i');

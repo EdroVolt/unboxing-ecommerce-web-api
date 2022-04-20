@@ -48,6 +48,7 @@ export class UserService extends BaseService<User> {
       order.createdAt = new Date();
 
       user.orders.push(order);
+      user.cart = { products: [], totalPrice: 0 };
       await user.save();
 
       return user.orders;

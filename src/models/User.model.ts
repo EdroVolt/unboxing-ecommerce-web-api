@@ -21,7 +21,7 @@ const schema = new mongoose.Schema(
             size: String
           }
         ],
-        totalCount: Number,
+        totalPrice: { type: Number, default: 0 },
         paymentMethod: { enum: ['cash', 'visa'] },
         createdAt: Date
       }
@@ -34,7 +34,7 @@ const schema = new mongoose.Schema(
           size: String
         }
       ],
-      totalCount: Number
+      totalPrice: { type: Number, default: 0 }
     },
     wishList: {
       products: [
@@ -44,7 +44,7 @@ const schema = new mongoose.Schema(
           size: String
         }
       ],
-      totalCount: Number
+      totalPrice: { type: Number, default: 0 }
     }
   },
   { timestamps: true }
@@ -68,17 +68,17 @@ export interface User {
   orders: [
     {
       products: { product: mongoose.Types.ObjectId; count: number }[];
-      totalCount: number;
+      totalPrice: number;
       paymentMethod: 'cash' | 'visa';
       createdAt?: Date;
     }
   ];
   cart: {
     products: { product: mongoose.Types.ObjectId; count: number }[];
-    totalCount: number;
+    totalPrice: number;
   };
   wishList: {
     products: { product: mongoose.Types.ObjectId; count: number }[];
-    totalCount: number;
+    totalPrice: number;
   };
 }

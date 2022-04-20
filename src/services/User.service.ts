@@ -54,14 +54,103 @@ export class UserService extends BaseService<User> {
     }
   }
 
+  async addToCart(
+    _id: mongoose.Types.ObjectId | number,
+    product: { product: mongoose.Types.ObjectId; count: number }
+  ) {
+    try {
+      const user: any = await this._repoObj.findById(_id);
+      user.cart.products.push(product);
+      await user.save();
+
+      const updatedUser: any = await this._repoObj.findById(_id);
+
+      const totalPrice = updatedUser.cart.products.reduce((sum: number, b: any) => {
+        const price =
+          (b.product.price - (b.product.discount / 100) * b.product.price) * b.count;
+
+        return sum + price;
+      }, 0);
+
+      console.log(totalPrice);
+
+      updatedUser.cart.totalPrice = totalPrice;
+      await updatedUser.save();
+
+      // get updated cart
+      return updatedUser.cart;
+    } catch (err: Error | any) {
+      throw new Error(err.message);
+    }
+  }
+
   async updateCart(_id: mongoose.Types.ObjectId | number, cart: UserCart) {
     try {
       const user: any = await this._repoObj.findById(_id);
 
       user.cart = cart;
-      user.save();
+      await user.save();
 
       return user.cart;
+    } catch (err: Error | any) {
+      throw new Error(err.message);
+    }
+  }
+
+  async getCart(_id: mongoose.Types.ObjectId | number) {
+    try {
+      const user: any = await this._repoObj.findById(_id);
+
+      return user.cart;
+    } catch (err: Error | any) {
+      throw new Error(err.message);
+    }
+  }
+
+  async deleteFromCart(
+    _id: mongoose.Types.ObjectId | number,
+    productId: mongoose.Types.ObjectId
+  ) {
+    try {
+      const user: any = await this._repoObj.findById(_id);
+      user.cart.products = user.cart.products.filter((product: any) => {
+        if (product.product._id.toString() !== productId) return true;
+        user.cart.totalPrice -=
+          product.product.price -
+          (product.product.discount / 100) * product.product.price * product.count;
+
+        return false;
+      });
+
+      await user.save();
+
+      return user.cart;
+    } catch (err: Error | any) {
+      throw new Error(err.message);
+    }
+  }
+
+  async addToWishList(
+    _id: mongoose.Types.ObjectId | number,
+    product: { product: mongoose.Types.ObjectId; count: number }
+  ) {
+    try {
+      const user: any = await this._repoObj.findById(_id);
+      user.wishList.products.push(product);
+      const totalPrice = user.wishList.products.reduce((sum: number, b: any) => {
+        const price =
+          (b.product.price - (b.product.discount / 100) * b.product.price) * b.count;
+
+        return sum + price;
+      }, 0);
+
+      user.wishList.totalPrice = totalPrice;
+
+      await user.save();
+
+      // get updated wishList
+      const updatedUser: any = await this._repoObj.findById(_id);
+      return updatedUser.wishList;
     } catch (err: Error | any) {
       throw new Error(err.message);
     }
@@ -75,9 +164,53 @@ export class UserService extends BaseService<User> {
       const user: any = await this._repoObj.findById(_id);
 
       user.wishList = wishList;
-      user.save();
+      await user.save();
 
       return user.wishList;
+    } catch (err: Error | any) {
+      throw new Error(err.message);
+    }
+  }
+
+  async getWishList(_id: mongoose.Types.ObjectId | number) {
+    try {
+      const user: any = await this._repoObj.findById(_id);
+
+      return user.wishList;
+    } catch (err: Error | any) {
+      throw new Error(err.message);
+    }
+  }
+
+  async deleteFromWishList(
+    _id: mongoose.Types.ObjectId | number,
+    product: { product: mongoose.Types.ObjectId; count: number }
+  ) {
+    try {
+      const user: any = await this._repoObj.findById(_id);
+      user.wishList.products.push(product);
+      await user.save();
+
+      const updatedUser: any = await this._repoObj.findById(_id);
+
+      const totalPrice = updatedUser.wishList.products.reduce(
+        (sum: number, b: any) => {
+          const price =
+            (b.product.price - (b.product.discount / 100) * b.product.price) *
+            b.count;
+
+          return sum + price;
+        },
+        0
+      );
+
+      console.log(totalPrice);
+
+      updatedUser.wishList.totalPrice = totalPrice;
+      await updatedUser.save();
+
+      // get updated cart
+      return updatedUser.wishList;
     } catch (err: Error | any) {
       throw new Error(err.message);
     }

@@ -17,8 +17,8 @@ export class UserController extends BaseController<User> {
     const tokenData: any = jwt.decode(token);
 
     try {
-      const data = await this._serviceObj.findOne(tokenData?.id);
-      res.status(200).json(data);
+      const user = await this._serviceObj.findOne(tokenData?.id);
+      res.status(200).json(user);
     } catch (err) {
       next(err);
     }
@@ -36,6 +36,20 @@ export class UserController extends BaseController<User> {
     }
   };
 
+  postMyCart = async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1] || '';
+    const tokenData: any = jwt.decode(token);
+
+    const product: any = req.body;
+
+    try {
+      const cart = await this._serviceObj.addToCart(tokenData?.id, product);
+      res.status(200).json(cart);
+    } catch (err) {
+      next(err);
+    }
+  };
+
   putCart = async (req: Request, res: Response, next: NextFunction) => {
     const _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id);
     const cart: UserCart = req.body;
@@ -48,6 +62,47 @@ export class UserController extends BaseController<User> {
     }
   };
 
+  getMyCart = async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1] || '';
+    const tokenData: any = jwt.decode(token);
+
+    try {
+      const cart = await this._serviceObj.getCart(tokenData?.id);
+      res.status(200).json(cart);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  deleteMyCart = async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1] || '';
+    const tokenData: any = jwt.decode(token);
+
+    const product: any = req.body.product;
+    console.log(product);
+
+    try {
+      const cart = await this._serviceObj.deleteFromCart(tokenData?.id, product);
+      res.status(200).json(cart);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  postMyWishList = async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1] || '';
+    const tokenData: any = jwt.decode(token);
+
+    const product: any = req.body;
+
+    try {
+      const wishList = await this._serviceObj.addToWishList(tokenData?.id, product);
+      res.status(200).json(wishList);
+    } catch (err) {
+      next(err);
+    }
+  };
+
   putWishList = async (req: Request, res: Response, next: NextFunction) => {
     const _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id);
     const wishList: UserWishList = req.body;
@@ -55,6 +110,35 @@ export class UserController extends BaseController<User> {
     try {
       const data = await this._serviceObj.updateWishList(_id, wishList);
       res.status(200).json(data);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  getMyWishList = async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1] || '';
+    const tokenData: any = jwt.decode(token);
+
+    try {
+      const wishList = await this._serviceObj.getWishList(tokenData?.id);
+      res.status(200).json(wishList);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  deleteMyWishList = async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1] || '';
+    const tokenData: any = jwt.decode(token);
+
+    const product: any = req.body.product;
+
+    try {
+      const wishList = await this._serviceObj.deleteFromWishList(
+        tokenData?.id,
+        product
+      );
+      res.status(200).json(wishList);
     } catch (err) {
       next(err);
     }

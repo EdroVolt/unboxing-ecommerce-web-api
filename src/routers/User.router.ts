@@ -24,10 +24,20 @@ export class UserRouter implements IRouterCustom {
     userRouter
       .route('/users/:id/orders')
       .post(auth.checkJwt, userController.postOrder);
-    userRouter.route('/users/:id/cart').put(auth.checkJwt, userController.putCart);
+
     userRouter
-      .route('/users/:id/wishList')
-      .put(auth.checkJwt, userController.putWishList);
+      .route('/users/me/cart')
+      .get(userController.getMyCart)
+      .post(userController.postMyCart)
+      .put(auth.checkJwt, userController.putCart)
+      .delete(userController.deleteMyCart);
+
+    userRouter
+      .route('/users/me/wishList')
+      .get(userController.getMyWishList)
+      .post(userController.deleteMyWishList)
+      .put(auth.checkJwt, userController.putWishList)
+      .delete(userController.deleteMyWishList);
 
     return userRouter;
   }

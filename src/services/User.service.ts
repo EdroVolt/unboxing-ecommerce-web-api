@@ -63,6 +63,13 @@ export class UserService extends BaseService<User> {
   ) {
     try {
       const user: any = await this._repoObj.findById(_id);
+      // check if product is exist in cart
+      user.cart.products.forEach((item: any) => {
+        if (item.product._id.toString() === product.product) {
+          throw Error('product already added');
+        }
+      });
+
       user.cart.products.push(product);
       await user.save();
 
@@ -141,7 +148,12 @@ export class UserService extends BaseService<User> {
   ) {
     try {
       const user: any = await this._repoObj.findById(_id);
-      console.log('user: ', user);
+      // check if product is exist in wishList
+      user.wishList.products.forEach((item: any) => {
+        if (item.product._id.toString() === product.product) {
+          throw Error('product already added');
+        }
+      });
 
       user.wishList.products.push(product);
       await user.save();

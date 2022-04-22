@@ -119,45 +119,42 @@ export default class UserValidator implements IRouterValidator {
         city: Joi.string().min(3).max(20),
         street: Joi.string().min(3).max(20),
         government: Joi.string().min(3).max(20)
+      }),
+      orders: Joi.array().items(
+        Joi.object({
+          products: Joi.array()
+            .items(
+              Joi.object({
+                product: Joi.string().length(24).required(),
+                count: Joi.number().min(1).required(),
+                size: Joi.string().max(15).required()
+              }).required()
+            )
+            .required(),
+          totalCount: Joi.number().min(1).required(),
+          paymentMethod: Joi.string().valid('cash', 'visa').required()
+        })
+      ),
+      cart: Joi.object({
+        products: Joi.array()
+          .items(
+            Joi.object({
+              product: Joi.string().length(24).required(),
+              count: Joi.number().min(1).required()
+            }).required()
+          )
+          .required(),
+        totalPrice: Joi.number().min(1)
+      }),
+      wishList: Joi.object({
+        products: Joi.array().items(
+          Joi.object({
+            product: Joi.string().length(24).required(),
+            count: Joi.number().min(1).required()
+          })
+        ),
+        totalPrice: Joi.number().min(0)
       })
-      // orders: Joi.array().items(
-      //   Joi.object({
-      //     products: Joi.array()
-      //       .items(
-      //         Joi.object({
-      //           product: Joi.string().length(24).required(),
-      //           count: Joi.number().min(1).required(),
-      //           size: Joi.string().max(15).required()
-      //         }).required()
-      //       )
-      //       .required(),
-      //     totalCount: Joi.number().min(1).required(),
-      //     paymentMethod: Joi.string().valid('cash', 'visa').required()
-      //   }).required()
-      // ),
-      // cart: Joi.object({
-      //   products: Joi.array()
-      //     .items(
-      //       Joi.object({
-      //         product: Joi.string().length(24).required(),
-      //         count: Joi.number().min(1).required()
-      //       }).required()
-      //     )
-      //     .required(),
-      //   totalPrice: Joi.number().min(1)
-      // }),
-
-      // wishList: Joi.object({
-      //   products: Joi.array()
-      //     .items(
-      //       Joi.object({
-      //         product: Joi.string().length(24).required(),
-      //         count: Joi.number().min(1).required()
-      //       })
-      //     )
-      //     .required(),
-      //   totalPrice: Joi.number().min(0)
-      // })
     });
 
     try {

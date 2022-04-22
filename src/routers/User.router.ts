@@ -18,13 +18,14 @@ export class UserRouter implements IRouterCustom {
     userRouter
       .route('/users/:id')
       .get(auth.checkJwt, userValidator.getOneOrDelete, userController.getOne)
-      .put(auth.checkJwt, userValidator.put, userController.put)
+      .put(auth.checkJwt, userController.put)
       .delete(auth.checkJwt, userValidator.getOneOrDelete, userController.delete);
-
+    userRouter
+      .route('/users/:id/changePassword')
+      .put(auth.checkJwt, userController.changePassword);
     userRouter
       .route('/users/:id/orders')
       .post(auth.checkJwt, userController.postOrder);
-
     userRouter
       .route('/users/me/cart')
       .get(userController.getMyCart)

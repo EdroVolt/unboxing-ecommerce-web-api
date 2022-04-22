@@ -15,6 +15,7 @@ export abstract class BaseRepo<schema> {
     return new Promise((resolve, reject) => {
       model(this._collectionName)
         .find(filter, fields)
+        .sort({ createdAt: -1 })
         .populate(this._populate)
         .skip(skip)
         .limit(limit)

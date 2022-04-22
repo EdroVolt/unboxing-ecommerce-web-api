@@ -93,6 +93,7 @@ export class UserService extends BaseService<User> {
       throw new Error(err.message);
     }
   }
+
   async changePassword(
     _id: mongoose.Types.ObjectId,
     updatedPassword: string,
@@ -101,8 +102,7 @@ export class UserService extends BaseService<User> {
     try {
       const user: any = await this._repoObj.findById(_id);
       // user.password = updatedPassword;
-      console.log(user.password + `user`);
-      console.log(oldPassword + `old`);
+
       if (!bcrypt.compareSync(oldPassword, user?.password)) {
         throw new Error('enter a valid password');
       } else if (bcrypt.compareSync(updatedPassword, user?.password)) {

@@ -27,8 +27,8 @@ app.listen(PORT || 8080);
 //   role: 'admin'
 // });
 // -------------- MWs -----------------------
-// app.middleware(new ImageUploaderMiddleware());
 app.middleware(new CorsMiddleware());
+app.middleware(new ImageUploaderMiddleware());
 app.middleware(new BodyParserMiddleware());
 app.middleware(new MoragnMiddleware());
 

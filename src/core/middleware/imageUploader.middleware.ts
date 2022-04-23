@@ -30,6 +30,6 @@ export class ImageUploaderMiddleware implements IMiddleware {
 
     const uploader = multer({ storage, fileFilter });
 
-    return uploader.single('image');
+    return uploader.single('file');
   }
 }

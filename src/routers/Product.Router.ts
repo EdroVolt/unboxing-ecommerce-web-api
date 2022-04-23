@@ -3,9 +3,6 @@ import { IRouterCustom } from '../core/interface/router.interface';
 import express, { IRouter } from 'express';
 import ProductValidator from '../middlewares/validations/productRouter.validate';
 import { JwtChecking } from '../middlewares/Auth';
-import multer from 'multer';
-
-const upload = multer({ dest: 'uploads/' });
 
 const productController = new ProductController();
 const productValidator = new ProductValidator();
@@ -17,7 +14,6 @@ export class ProductRouter implements IRouterCustom {
 
     productRouter.route('/products').get(productController.getAll).post(
       // auth.checkJwt,
-      upload.array('images', 12),
       productValidator.post,
       productController.post
     );

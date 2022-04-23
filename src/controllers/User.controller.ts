@@ -7,7 +7,8 @@ import * as jwt from 'jsonwebtoken';
 import { User } from '../models/User.model';
 import UserOrder from 'interfaces/userOrder.interface';
 import UserCart from 'interfaces/userCart.interface';
-import UserWishList from 'interfaces/userWishList.interface';
+import UserWishList from '../interfaces/userWishList.interface';
+import { UserRepo } from '../repositories/User.repo';
 
 export class UserController extends BaseController<User> {
   _serviceObj: UserService = new UserService();
@@ -50,6 +51,22 @@ export class UserController extends BaseController<User> {
     }
   };
 
+  changePassword = async (req: Request, res: Response, next: NextFunction) => {
+    const password: string = req.body.newPassword;
+    const oldPassword = req.body.oldPassword;
+    const _id = new mongoose.Types.ObjectId(req.params.id);
+    try {
+      const data = await this._serviceObj.changePassword(
+        new mongoose.Types.ObjectId(_id),
+        password,
+        oldPassword
+      );
+
+      res.status(200).json(data);
+    } catch (err) {
+      next(err);
+    }
+  };
   putCart = async (req: Request, res: Response, next: NextFunction) => {
     const _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id);
     const cart: UserCart = req.body;

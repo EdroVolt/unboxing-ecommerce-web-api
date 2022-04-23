@@ -6,7 +6,7 @@ import UserOrder from '../interfaces/userOrder.interface';
 import UserCart from '../interfaces/userCart.interface';
 import UserWishList from '../interfaces/userWishList.interface';
 import { ProductRepo } from '../repositories/Product.repo';
-
+import bcrypt from 'bcrypt';
 const productRepo = new ProductRepo();
 
 export class UserService extends BaseService<User> {
@@ -89,6 +89,30 @@ export class UserService extends BaseService<User> {
 
       // get updated cart
       return updatedUser.cart;
+    } catch (err: Error | any) {
+      throw new Error(err.message);
+    }
+  }
+
+  async changePassword(
+    _id: mongoose.Types.ObjectId,
+    updatedPassword: string,
+    oldPassword: string
+  ) {
+    try {
+      const user: any = await this._repoObj.findById(_id);
+      // user.password = updatedPassword;
+
+      if (!bcrypt.compareSync(oldPassword, user?.password)) {
+        throw new Error('enter a valid password');
+      } else if (bcrypt.compareSync(updatedPassword, user?.password)) {
+        throw new Error('enter different password');
+      }
+      user.password = bcrypt.hashSync(updatedPassword, 10);
+
+      await user.save();
+
+      return user;
     } catch (err: Error | any) {
       throw new Error(err.message);
     }

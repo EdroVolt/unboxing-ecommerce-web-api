@@ -1,4 +1,4 @@
-import { IMiddleware } from 'core/interface/middleware.interface';
+import { IMiddleware } from '../interface/middleware.interface';
 import multer from 'multer';
 import path from 'path';
 

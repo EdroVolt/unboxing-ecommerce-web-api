@@ -11,7 +11,7 @@ import { SigninRouter } from './routers/Login.Router';
 import { AdminService } from './services/Admin.service';
 import bcrypt from 'bcrypt';
 import { RegisterController } from 'controllers/Register.controller';
-import { ImageUploaderMiddleware } from 'core/middleware/imageUploader.middleware';
+import { ImageUploaderMiddleware } from './core/middleware/imageUploader.middleware';
 
 // -------------- server init ---------------
 const app = new Server();
@@ -27,7 +27,7 @@ app.listen(PORT || 8080);
 //   role: 'admin'
 // });
 // -------------- MWs -----------------------
-app.middleware(new ImageUploaderMiddleware());
+// app.middleware(new ImageUploaderMiddleware());
 app.middleware(new CorsMiddleware());
 app.middleware(new BodyParserMiddleware());
 app.middleware(new MoragnMiddleware());

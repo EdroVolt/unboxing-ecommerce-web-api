@@ -14,7 +14,7 @@ export class ProductRouter implements IRouterCustom {
 
     productRouter.route('/products').get(productController.getAll).post(
       // auth.checkJwt,
-      productValidator.post,
+      // productValidator.post,
       productController.post
     );
 

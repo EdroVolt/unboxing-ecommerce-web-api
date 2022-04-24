@@ -9,12 +9,13 @@ export abstract class BaseRepo<schema> {
   findAll(
     filter: Object = {},
     skip: number = 0,
-    limit: number = 10,
+    limit: number = 20,
     fields: string | null = null
   ) {
     return new Promise((resolve, reject) => {
       model(this._collectionName)
         .find(filter, fields)
+        .sort({ createdAt: -1 })
         .populate(this._populate)
         .skip(skip)
         .limit(limit)

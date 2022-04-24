@@ -8,6 +8,9 @@ dotenv.config();
 
 export class Server {
   private readonly _server = express();
+  constructor() {
+    this._server.use(express.static('uploads'));
+  }
 
   middleware(mw: IMiddleware) {
     this._server.use(mw.getMiddleware());

@@ -31,6 +31,7 @@ export abstract class BaseController<schema> {
   // TODO: post()
   post = async (req: Request, res: Response, next: NextFunction) => {
     const doc: schema = req.body;
+
     try {
       const data = await this._serviceObj.createOne(doc);
       res.status(200).json(data);
